@@ -1,3 +1,9 @@
+# OWN EXCLUSIONS
+.idea/
+preschool_web_service.iml
+target/
+src/main/webapp/WEB-INF/web.xml
+
 # Compiled class file
 *.class
 
