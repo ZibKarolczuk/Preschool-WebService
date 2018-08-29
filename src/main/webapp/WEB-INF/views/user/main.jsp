@@ -78,7 +78,7 @@
             <td>${child.specialInfoOther}</td>
             <td>
                 <input type="button" class="btn btn-secondary" value="Edytuj" onclick="location.href = '/user/child/edit/${child.id}';">
-                <input type="button" class="btn btn-danger" value="Usuń" onclick="location.href = '/user/child/delete/${child.id}';">
+                <input id="deleteChild" type="button" class="btn btn-danger" value="Usuń" onclick="location.href = '/user/child/delete/${child.id}';">
 
             </td>
         </tr>
