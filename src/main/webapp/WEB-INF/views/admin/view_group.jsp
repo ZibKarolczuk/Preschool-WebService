@@ -49,7 +49,7 @@
             <%--<c:set var="delete_group" value="<a href=\"/admin/group/${cg.id}/delete\">Usuń grupę</a>"></c:set>--%>
 
             <c:set var="delete_group"
-                   value="<input type=\"button\" class=\"btn btn-danger\" value=\"Usuń grupę\" onclick=\"location.href = '/admin/group/${cg.id}/delete';\">"></c:set>
+                   value="<input id=\"deleteGroup\" type=\"button\" class=\"btn btn-danger\" value=\"Usuń grupę\" onclick=\"location.href = '/admin/group/${cg.id}/delete';\">"></c:set>
 
 
             <tr>

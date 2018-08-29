@@ -41,7 +41,7 @@
                 <td>${user.email}</td>
                 <td>${user.userDetails.phone}</td>
                 <td><input type="button" class="btn btn-primary" value="Wyślij e-mail" onclick="location.href = '/admin/user/email/${user.id}';">
-                    <input type="button" class="btn btn-danger" value="Usuń użytkownika" onclick="location.href = '/admin/user/delete/${user.id}';"
+                    <input id="deleteUser" type="button" class="btn btn-danger" value="Usuń użytkownika" onclick="location.href = '/admin/user/delete/${user.id}';"
                     <%--<a href="/admin/user/delete/${user.id}">Usuń</a>--%>
                 </td>
             </tr>
