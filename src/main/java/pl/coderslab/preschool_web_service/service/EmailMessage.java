@@ -15,6 +15,8 @@ import java.util.Collection;
 public class EmailMessage {
 
     private ServletRequest se;
+    private ArrayList<String> sendList;
+    private String fromDescrpt;
     private Message message;
 
     private String emailFrom;
@@ -23,12 +25,11 @@ public class EmailMessage {
     private String emailHost;
     private String emailPort;
 
-    private ArrayList<String> list;
-
-    public EmailMessage(ServletRequest se, ArrayList<String> list, Message message) throws AddressException, EmailException {
+    public EmailMessage(ServletRequest se, ArrayList<String> sendList, String fromDescrpt, Message message) throws AddressException, EmailException {
 
         this.se = se;
-        this.list = list;
+        this.sendList = sendList;
+        this.fromDescrpt = fromDescrpt;
         this.message = message;
 
         this.emailFrom = this.se.getServletContext().getInitParameter("emailFrom");
@@ -50,12 +51,12 @@ public class EmailMessage {
             email.setMsg(message.getMessage());
 
             Collection<InternetAddress> collectionTo = new ArrayList<>();
-            for (String address: list){
+            for (String address: sendList){
                 collectionTo.add(new InternetAddress(address));
             }
 
             email.setBcc(collectionTo);
-            email.setFrom(emailFrom, "Przedszkole Stacyjkowo");
+            email.setFrom(emailFrom, fromDescrpt);
 
             email.send();
 

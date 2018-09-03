@@ -1,13 +1,14 @@
 package pl.coderslab.preschool_web_service.entity;
 
-import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.NotEmpty;
-import pl.coderslab.preschool_web_service.entity.security.User;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Message {
@@ -16,17 +17,22 @@ public class Message {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
 
-    @Email
     private String sendFrom;
 
-//    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.ALL, CascadeType.REMOVE}, fetch = FetchType.LAZY)
-//    private List<User> User;
+    private String sendTo;
 
     @NotBlank
     private String title;
 
     @NotBlank
     private String message;
+
+//    @DateTimeFormat
+    private String dateTime;
+
+    @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    private List<UserDetails> userDetails  = new ArrayList<>();
+
 
     public Message() {
     }
@@ -47,6 +53,14 @@ public class Message {
         this.sendFrom = sendFrom;
     }
 
+    public String getSendTo() {
+        return sendTo;
+    }
+
+    public void setSendTo(String sendTo) {
+        this.sendTo = sendTo;
+    }
+
     public String getTitle() {
         return title;
     }
@@ -63,7 +77,19 @@ public class Message {
         this.message = message;
     }
 
-    public String get$sendToList() {
-        return null;
+    public String getDateTime() {
+        return dateTime;
+    }
+
+    public void setDateTime(String dateTime) {
+        this.dateTime = dateTime;
+    }
+
+    public List<UserDetails> getUserDetails() {
+        return userDetails;
+    }
+
+    public void setUserDetails(List<UserDetails> userDetails) {
+        this.userDetails = userDetails;
     }
 }

@@ -37,8 +37,12 @@ public interface ChildRepository extends JpaRepository<Child, Long> {
     @Query(value = "SELECT * FROM Child order by surname asc", nativeQuery = true)
     List<Child> findAllByChildOrderBySurname();
 
-    @Query(value = "SELECT DISTINCT email FROM Child JOIN User WHERE childGroup_id=?1", nativeQuery = true)
+
+    @Query(value = "SELECT DISTINCT email FROM Child CROSS JOIN UserDetails Detail on Child.userDetails_id = Detail.id CROSS JOIN ChildGroup CG on Child.childGroup_id = CG.id WHERE CG.id=?1", nativeQuery = true)
     List<String> getUserEmailByChildGroup(String id);
+
+    @Query(value = "SELECT * FROM Child WHERE id=?1", nativeQuery = true)
+    Child getChildById(Long id);
 
 
 }

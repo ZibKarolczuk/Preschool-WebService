@@ -1,5 +1,6 @@
 package pl.coderslab.preschool_web_service.entity;
 
+import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
@@ -13,10 +14,15 @@ public class UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private @NotBlank
-    String name;
+    private @NotBlank String name;
     private @NotBlank String surname;
     private @NotBlank String phone;
+    private @Email String email;
+
+    private String name2;
+    private String surname2;
+    private String phone2;
+    private @Email String email2;
 
     private @NotBlank String addressStreet;
     private String addressPostCode;
@@ -24,6 +30,9 @@ public class UserDetails {
 
     @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.ALL, CascadeType.REMOVE}, orphanRemoval = true)
     private List<Child> childList = new ArrayList<>();
+
+    @ManyToMany(mappedBy = "userDetails")
+    private List<Message> messages = new ArrayList<>();
 
     public UserDetails() {
     }
@@ -40,24 +49,64 @@ public class UserDetails {
         return name;
     }
 
-    public void setName(String firstPersonName) {
-        this.name = firstPersonName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getSurname() {
         return surname;
     }
 
-    public void setSurname(String firstPersonSurname) {
-        this.surname = firstPersonSurname;
+    public void setSurname(String surname) {
+        this.surname = surname;
     }
 
     public String getPhone() {
         return phone;
     }
 
-    public void setPhone(String firstPersonPhone) {
-        this.phone = firstPersonPhone;
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getName2() {
+        return name2;
+    }
+
+    public void setName2(String name2) {
+        this.name2 = name2;
+    }
+
+    public String getSurname2() {
+        return surname2;
+    }
+
+    public void setSurname2(String surname2) {
+        this.surname2 = surname2;
+    }
+
+    public String getPhone2() {
+        return phone2;
+    }
+
+    public void setPhone2(String phone2) {
+        this.phone2 = phone2;
+    }
+
+    public String getEmail2() {
+        return email2;
+    }
+
+    public void setEmail2(String email2) {
+        this.email2 = email2;
     }
 
     public String getAddressStreet() {
@@ -90,5 +139,13 @@ public class UserDetails {
 
     public void setChildList(List<Child> childList) {
         this.childList = childList;
+    }
+
+    public List<Message> getMessages() {
+        return messages;
+    }
+
+    public void setMessages(List<Message> messages) {
+        this.messages = messages;
     }
 }

@@ -56,7 +56,7 @@
                 <td>${cg.groupName}</td>
                 <td>
                     <c:forEach var="sc" items="${sortedChilds}">
-                        ${cg.id == sc.childGroup.id ? sc.name.concat(" ").concat(sc.surname).concat("<br>") : ''}
+                        ${cg.id == sc.childGroup.id ? sc.name.concat(" ").concat(sc.surname).concat(", ") : ''}
                         <c:choose>
                             <c:when test="${cg.id eq sc.childGroup.id}">
                                 <c:set var="send_email"

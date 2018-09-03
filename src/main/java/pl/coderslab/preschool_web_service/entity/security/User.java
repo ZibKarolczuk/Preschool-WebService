@@ -23,12 +23,6 @@ public class User {
     private boolean enabled;
     private String secret;
 
-    //    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.ALL, CascadeType.REMOVE}, fetch = FetchType.EAGER, orphanRemoval = true)
-    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.ALL, CascadeType.REMOVE}, orphanRemoval = true)
-    private UserDetails userDetails;
-
-    //
-
     @ElementCollection // Also relation to new entity Role can be used
     private Collection<String> roles;
 
@@ -96,14 +90,6 @@ public class User {
 
     public void setSecret(String secret) {
         this.secret = secret;
-    }
-
-    public UserDetails getUserDetails() {
-        return userDetails;
-    }
-
-    public void setUserDetails(UserDetails userDetails) {
-        this.userDetails = userDetails;
     }
 
     @Override

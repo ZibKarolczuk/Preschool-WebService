@@ -7,10 +7,16 @@
         <validation-mode>NONE</validation-mode>
 
         <properties>
+            <!--<property name="javax.persistence.jdbc.url"-->
+                      <!--value="jdbc:mysql://localhost:3306/PreschoolWebService"/>-->
+            <!--<property name="javax.persistence.jdbc.user" value="root"/>-->
+            <!--<property name="javax.persistence.jdbc.password" value="coderslab"/>-->
+
             <property name="javax.persistence.jdbc.url"
-                      value="jdbc:mysql://localhost:3306/PreschoolWebService"/>
-            <property name="javax.persistence.jdbc.user" value="root"/>
-            <property name="javax.persistence.jdbc.password" value="coderslab"/>
+                      value="jdbc:mysql://sql.serwer1833957.home.pl:3306/28560350_pws"/>
+            <property name="javax.persistence.jdbc.user" value="28560350_pws"/>
+            <property name="javax.persistence.jdbc.password" value="!Tpws@DB"/>
+
             <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
             <property name="javax.persistence.schema-generation.database.action"
                       value="none"/>

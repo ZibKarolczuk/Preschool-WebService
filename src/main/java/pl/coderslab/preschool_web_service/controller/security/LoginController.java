@@ -14,8 +14,10 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pl.coderslab.preschool_web_service.entity.Message;
+import pl.coderslab.preschool_web_service.entity.UserDetails;
 import pl.coderslab.preschool_web_service.model.security.UserDto;
 import pl.coderslab.preschool_web_service.repository.MessageRepository;
+import pl.coderslab.preschool_web_service.repository.UserDetailsRepository;
 import pl.coderslab.preschool_web_service.service.security.IUserService;
 import pl.coderslab.preschool_web_service.validation.security.EmailExistsException;
 
@@ -30,9 +32,6 @@ public class LoginController {
 
 	@GetMapping("/login")
 	public ModelAndView login() {
-//		Message msg = new Message();
-//		msg.setTitle("ąęółć");
-//		mr.save(msg);
 		ModelAndView model = new ModelAndView();
 		model.setViewName("security/login");
 		return model;
