@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import pl.coderslab.preschool_web_service.entity.Child;
 import pl.coderslab.preschool_web_service.entity.ChildGroup;
 import pl.coderslab.preschool_web_service.entity.Message;
+import pl.coderslab.preschool_web_service.entity.UserDetails;
 import pl.coderslab.preschool_web_service.entity.security.User;
 import pl.coderslab.preschool_web_service.repository.ChildGroupRepository;
 import pl.coderslab.preschool_web_service.repository.ChildRepository;
@@ -23,16 +24,23 @@ import javax.mail.internet.AddressException;
 import javax.servlet.ServletRequest;
 import javax.swing.event.ListDataEvent;
 import javax.validation.Valid;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Controller
 @RequestMapping("/admin")
-@SessionAttributes("user")
+@SessionAttributes({"user", "userDetails"})
 public class AdminController {
+
+//    DEPENDENCY INJECTIONS:
 
     @Autowired
     private UserRepository ur;
+
+    @Autowired
+    private UserDetailsRepository udr;
 
     @Autowired
     private ChildRepository chr;
@@ -42,6 +50,8 @@ public class AdminController {
 
     @Autowired
     private MessageRepository mr;
+
+//    SESSION & MODEL ATTRIBUTES:
 
     @ModelAttribute("childList")
     public List<Child> childList() {
@@ -58,6 +68,11 @@ public class AdminController {
         return this.ur.findAll();
     }
 
+    @ModelAttribute("userDetailsList")
+    public List<UserDetails> userDetailsList() {
+        return this.udr.findAll();
+    }
+
     @ModelAttribute("childGroupList")
     public List<ChildGroup> childGroupList2() {
         return this.cgr.listGroupsSorted();
@@ -67,6 +82,8 @@ public class AdminController {
     public List<Child> childListSorted() {
         return this.chr.findAllByChildOrderBySurname();
     }
+
+//    VIEWS CONTROLLER:
 
     @GetMapping("")
     public String admin() {
@@ -127,16 +144,24 @@ public class AdminController {
     }
 
     @GetMapping("/user")
-    public String viewUser(Model model, @ModelAttribute User user) {
+    public String viewUser(Model model, @ModelAttribute UserDetails userDetails) {
+//        model.addAttribute("userChilds", this.chr.getAllChildsByUser(userDetails.getId()));
+        model.addAttribute("childs", this.chr.findAllChilds());
         return "admin/view_user";
     }
 
     @GetMapping("/user/email/{userId}")
-    public String userSendEmail(@PathVariable long userId, Model model) {
+    public String userSendEmail(@PathVariable long userId, Model model, @ModelAttribute UserDetails userDetails) {
         model.addAttribute("message", new Message());
-        model.addAttribute("title",
-                this.ur.findOne(userId).getUserDetails().getName() + " " +
-                        this.ur.findOne(userId).getUserDetails().getSurname());
+
+        String title = this.udr.findOne(userId).getName() + " " + this.udr.findOne(userId).getSurname();
+        if (this.udr.findOne(userId).getEmail2() != null){
+            if (!this.udr.findOne(userId).getName2().isEmpty() || !this.udr.findOne(userId).getSurname2().isEmpty()) {
+                title += " oraz " + this.udr.findOne(userId).getName2() + " " + this.udr.findOne(userId).getSurname2();
+            }
+        }
+        model.addAttribute("title", title);
+
         return "message/adminToUser";
     }
 
@@ -152,10 +177,20 @@ public class AdminController {
             return "message/adminToUser";
         }
 
-        this.mr.save(message);
+        LocalDateTime timeStamp = LocalDateTime.now();
+
+        message.setSendFrom("admin");
+        message.setDateTime(timeStamp.toString());
+
         ArrayList<String> emailList = new ArrayList<>();
-        emailList.add(this.ur.findOne(userId).getEmail());
-        EmailMessage emailMessage = new EmailMessage(servletRequest, emailList, message);
+        String email = this.ur.findOne(userId).getEmail();
+        emailList.add(email);
+        if (this.udr.getEmail2ByEmail(email).length()>0) emailList.add(this.udr.getEmail2ByEmail(email));
+        EmailMessage emailMessage = new EmailMessage(servletRequest, emailList, "Stacyjkowo Admin", message);
+
+        message.setSendTo(emailList.toString());
+        this.mr.save(message);
+
         return "redirect:/admin/user";
     }
 
@@ -196,52 +231,61 @@ public class AdminController {
         return "redirect:/admin/group";
     }
 
-    @GetMapping("/group/{id}/message")
-    public String groupsMessage(Model model, @PathVariable long id) {
+    @GetMapping("/group/{groupId}/message")
+    public String groupsMessage(Model model, @PathVariable long groupId) {
         model.addAttribute("message", new Message());
-        model.addAttribute("groupSelected", id);
-//        model.addAttribute("groupTo", new ArrayList<String>());
+        model.addAttribute("groupSelected", groupId);
         return "message/adminToGroup";
     }
 
-    @PostMapping("/group/{id}/message")
+    @PostMapping("/group/{groupId}/message")
     public String groupsMessagePost(@Valid Message message, BindingResult result,
-                                    @PathVariable long id, Model model,
+                                    @PathVariable long groupId, Model model,
                                     @ModelAttribute User user,
                                     @RequestParam List<String> groupTo,
                                     ServletRequest servletRequest) throws EmailException, AddressException {
 
         groupTo.remove("0");
         if (result.hasErrors() || groupTo.size() == 0) {
-            model.addAttribute("groupSelected", id);
+            model.addAttribute("groupSelected", groupId);
             return "message/adminToGroup";
         }
 
+        LocalDateTime timeStamp = LocalDateTime.now();
+
+        message.setSendFrom("admin");
+        message.setDateTime(timeStamp.toString());
+
         ArrayList<String> emailList = new ArrayList<>();
-        for (String groupId : groupTo) {
-            for (String email : this.chr.getUserEmailByChildGroup(groupId)) {
-                if (!emailList.contains(email)) emailList.add(email);
+        ArrayList<String> groupListName = new ArrayList<>();
+        for (String group : groupTo) {
+            groupListName.add(this.cgr.findOne(Long.parseLong(group)).getGroupName());
+            for (String email : this.chr.getUserEmailByChildGroup(group)) {
+                if (!emailList.contains(email)) {
+                    emailList.add(email);
+                    if (this.udr.getEmail2ByEmail(email) != null) emailList.add(this.udr.getEmail2ByEmail(email));
+                }
+
             }
         }
 
+        EmailMessage emailMessage = new EmailMessage(servletRequest, emailList, "Stacyjkowo New Post", message);
+
+        message.setSendTo(groupListName.toString());
         this.mr.save(message);
-        EmailMessage emailMessage = new EmailMessage(servletRequest, emailList, message);
+
         return "redirect:/admin/group";
 
     }
 
-
     @GetMapping("/user/delete/{userId}")
     @Transactional
-    public String removeUser(@PathVariable long userId,
-                             Model model) {
-
+    public String removeUser(@PathVariable long userId) {
         for (Child child : this.chr.getAllChildsByUser(userId)) {
             Long childId = child.getId();
             child.setChildGroup(null);
             this.chr.delete(childId);
         }
-
         this.ur.delete(userId);
         return "redirect:/admin/user";
     }

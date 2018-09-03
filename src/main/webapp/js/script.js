@@ -1,5 +1,7 @@
 $(document).ready(function () {
 
+    // DELETE ELEMENT REQUEST CONFIRM OPTION
+
     $('td input#deleteChild').on("click", function () {
         confirmDelete("http://localhost:8080/user/");
     });
@@ -19,6 +21,11 @@ $(document).ready(function () {
             window.location.href = address;
         }
     }
+
+    $('[data-toggle=confirmation]').confirmation({
+        rootSelector: '[data-toggle=confirmation]',
+        // other options
+    });
 
     // function deleteUser(idUser) {
     //     sendGenericRequest("http://localhost:8080/admin/user/delete/"+idUser,

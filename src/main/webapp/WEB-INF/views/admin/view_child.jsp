@@ -27,9 +27,7 @@
             <%--<th>Data urodzenia</th>--%>
             <th>Opiekun prawny</th>
             <th>Upoważnienie do odbioru dziecka</th>
-            <th>Uwagi dotyczące diety</th>
-            <th>Przyjmowane lekarstwa / suplementy</th>
-            <th>Inne</th>
+            <th>Wszelkie uwagi</th>
         </tr>
         </thead>
         <tbody>
@@ -54,11 +52,18 @@
 
                 </td>
                     <%--<td>${child.birthhday}</td>--%>
-                <td>${child.userDetails.name} ${child.userDetails.surname} </td>
+                <td>
+                        ${child.userDetails.name} ${child.userDetails.surname}
+                    ${(child.userDetails.name2.trim().length() gt 0 or child.userDetails.surname2.trim().length() gt 0) ?
+                    "<br>".concat(child.userDetails.name2).concat(" ").concat(child.userDetails.surname2) : ''}
+                </td>
                 <td>${child.specialAllowedPickUp}</td>
-                <td>${child.specialInfoDiet}</td>
-                <td>${child.specialInfoMedication}</td>
-                <td>${child.specialInfoOther}</td>
+
+                <td>
+                        ${child.specialInfoDiet.trim().length() gt 0 ? "Dieta: ".concat(child.specialInfoDiet).concat("<br>") : ''}
+                    ${child.specialInfoMedication.trim().length() gt 0 ? "Lekarstwa: ".concat(child.specialInfoMedication).concat("<br>") : ''}
+                    ${child.specialInfoOther.trim().length() gt 0 ? "Inne uwagi: ".concat(child.specialInfoOther) : ''}
+                </td>
             </tr>
         </c:forEach>
         </tbody>

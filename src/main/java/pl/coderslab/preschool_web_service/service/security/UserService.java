@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import pl.coderslab.preschool_web_service.entity.UserDetails;
 import pl.coderslab.preschool_web_service.entity.security.User;
 import pl.coderslab.preschool_web_service.model.security.UserDto;
+import pl.coderslab.preschool_web_service.repository.UserDetailsRepository;
 import pl.coderslab.preschool_web_service.repository.security.UserRepository;
 import pl.coderslab.preschool_web_service.validation.security.EmailExistsException;
 
@@ -17,6 +18,9 @@ import pl.coderslab.preschool_web_service.validation.security.EmailExistsExcepti
 public class UserService implements IUserService {
 	@Autowired
 	private UserRepository repository;
+
+	@Autowired
+    private UserDetailsRepository udr;
 
 	@Transactional
     public User registerNewUserAccount(UserDto accountDto)
@@ -31,7 +35,10 @@ public class UserService implements IUserService {
         user.setPassword(accountDto.getPassword());
         user.setEmail(accountDto.getEmail());
         user.setRoles(Arrays.asList("ROLE_ADMIN"));
-        user.setUserDetails(new UserDetails());
+        UserDetails userDetails = new UserDetails();
+//        userDetails.setId(user.getId());
+        userDetails.setEmail(accountDto.getEmail());
+        this.udr.save(userDetails);
         return repository.save(user);       
     }
 

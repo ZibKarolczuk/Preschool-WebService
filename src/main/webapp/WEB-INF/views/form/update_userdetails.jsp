@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="input" uri="http://www.springframework.org/tags/form" %>
 <%--
   Created by IntelliJ IDEA.
   User: zbigniew
@@ -22,9 +23,9 @@
         <h2>Zaktualizuj dane personalne</h2>
         <br>
 
-        <form:form method="post" modelAttribute="userdetails">
+        <form:form method="post" modelAttribute="userDetails">
 
-            <form:hidden path="id"></form:hidden>
+            <input:hidden path="id"></input:hidden>
 
             <div class="form-group row">
                 <form:label path="name" class="col-sm-2 col-form-label">Imię</form:label>
@@ -82,6 +83,44 @@
                     <form:errors path="addressCity"></form:errors>
                 </div>
             </div>
+
+            <br>
+            <h2>Uzupełnij dane drugiego opiekuna (opcjonalnie)</h2>
+            <br>
+
+            <div class="form-group row">
+                <form:label path="name2" class="col-sm-2 col-form-label">Imię</form:label>
+                <div class="col-sm-6">
+                    <form:input path="name2" class="form-control" placeholder="Anna"></form:input>
+                    <form:errors path="name2"></form:errors>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <form:label path="surname2" class="col-sm-2 col-form-label">Nazwisko</form:label>
+                <div class="col-sm-6">
+                    <form:input path="surname2" class="form-control" placeholder="Kowalska"></form:input>
+                    <form:errors path="surname2"></form:errors>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <form:label path="phone2" class="col-sm-2 col-form-label">Telefon</form:label>
+                <div class="col-sm-6">
+                    <form:input path="phone2" class="form-control" placeholder="+48 500 100 365"></form:input>
+                    <form:errors path="phone2"></form:errors>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <form:label path="email2" class="col-sm-2 col-form-label">E-mail</form:label>
+                <div class="col-sm-6">
+                    <form:input path="email2" class="form-control" placeholder="anna.kowalska@gmail.com"></form:input>
+                    <form:errors path="email2"></form:errors>
+                </div>
+            </div>
+
+            <br>
 
             <div class="form-group row">
                 <div class="offset-sm-2 col-sm-6">

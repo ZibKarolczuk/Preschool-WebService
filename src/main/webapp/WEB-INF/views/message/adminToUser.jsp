@@ -20,7 +20,9 @@
 <div class="container-fluid">
 
     <div class="container">
-        <h2>Wyślij wiadomość do użytkownika ${title}</h2>
+        <h2>
+            Wyślij wiadomość do ${title}
+        </h2>
         <br>
 
         <form:form method="post" modelAttribute="message">
@@ -34,18 +36,10 @@
             </div>
 
             <div class="form-group">
-
-                <%--<form:label path="message" class="col-sm-2 col-form-label">Tytuł wiadomości</form:label>--%>
                 <form:label path="message">Treść wiadomości</form:label>
                 <form:textarea path="message" rows="15"
                                placeholder="wpisz treść wiadomości..." class="form-control"></form:textarea>
                 <form:errors path="message"></form:errors>
-
-
-                    <%--<label for="message">Wiadomość:</label>--%>
-                    <%--<textarea class="form-control" rows="5" id="message" path="message"--%>
-                    <%--placeholder="Wpisz tutaj treść wiadomości"></textarea>--%>
-
             </div>
 
             <div class="form-group row">

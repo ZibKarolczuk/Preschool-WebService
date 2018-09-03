@@ -23,27 +23,49 @@
     <table class="table table-striped">
         <thead>
         <tr>
-            <th>Login użytkownika</th>
-            <th>Imię i nazwisko</th>
-            <th>Adres zamieszkania</th>
-            <th>Adres email</th>
-            <th>Telefon</th>
-            <th>Akcje</th>
+            <th>Opiekunowi prawni</th>
+            <th>Dane kontaktowe</th>
+            <th>Przypisane dzieci</th>
+            <th>Akcje na użytkowniku</th>
         </tr>
         </thead>
         <tbody>
-        <c:forEach var="user" items="${userList}">
+        <c:forEach var="ud" items="${userDetailsList}">
             <tr>
-                <td>${user.username}</td>
-                <td>${user.userDetails.name} ${user.userDetails.surname}</td>
-                <td>${user.userDetails.addressStreet}<br>
-                        ${user.userDetails.addressPostCode} ${user.userDetails.addressCity}</td>
-                <td>${user.email}</td>
-                <td>${user.userDetails.phone}</td>
-                <td><input type="button" class="btn btn-primary" value="Wyślij e-mail" onclick="location.href = '/admin/user/email/${user.id}';">
-                    <input id="deleteUser" type="button" class="btn btn-danger" value="Usuń użytkownika" onclick="location.href = '/admin/user/delete/${user.id}';"
-                    <%--<a href="/admin/user/delete/${user.id}">Usuń</a>--%>
+
+                <td>
+                        ${ud.name} ${ud.surname}
+                        ${(ud.name2.trim().length() gt 0 or ud.surname2.trim().length() gt 0) ?
+                                "<br>".concat(ud.name2).concat(" ").concat(ud.surname2) : ''}
                 </td>
+
+                <td>
+                        ${(ud.addressStreet.trim().length() gt 0 or ud.addressCity.trim().length() gt 0) ?
+                                ud.addressStreet.concat(", ").concat(ud.addressPostCode).concat(" ").concat(ud.addressCity).concat("<br>") : '' }
+                    <i>
+                        e-mail:
+                        <b>${ud.email}</b> ${ud.phone.trim().length() gt 0 ? "/ tel: <b>".concat(ud.phone).concat("</b>") : ''}
+                            ${(ud.email2.trim().length() gt 0 or ud.phone2.trim().length() gt 0) ? "<br>" : '' }
+                            ${ud.email2.trim().length() gt 0 ? "e-mail: <b>".concat(ud.email2).concat("</b>") : ''}
+                            ${(ud.email2.trim().length() gt 0 and ud.phone2.trim().length() gt 0) ? " / " : ''}
+                            ${ud.phone2.trim().length() gt 0 ? "tel: <b>".concat(ud.phone2).concat("</b>") : ''}
+                    </i>
+                </td>
+
+                <td>
+                    <c:forEach var="child" items="${childs}">
+                        ${child.userDetails.id eq ud.id ?
+                        child.name.concat(" ").concat(child.surname).concat(" (<b>").concat(child.childGroup.groupName).concat("</b>), ") : ''}
+                        <%--${child.name} ${child.surname} (<b>${child.childGroup.groupName}</b>),--%>
+                    </c:forEach>
+                </td>
+
+                <td><input type="button" class="btn btn-primary" value="Wyślij e-mail"
+                           onclick="location.href = '/admin/user/email/${ud.id}';">
+                    <input id="deleteUser" type="button" class="btn btn-danger" value="Usuń użytkownika"
+                           onclick="location.href = '/admin/user/delete/${ud.id}';">
+                </td>
+
             </tr>
         </c:forEach>
         </tbody>

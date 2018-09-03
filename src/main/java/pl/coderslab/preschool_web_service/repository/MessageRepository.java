@@ -4,7 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import pl.coderslab.preschool_web_service.entity.Message;
 
-import java.awt.print.Book;
 import java.util.List;
 
 public interface MessageRepository extends JpaRepository<Message, Long> {
