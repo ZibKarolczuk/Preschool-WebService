@@ -3,22 +3,26 @@ $(document).ready(function () {
     // DELETE ELEMENT REQUEST CONFIRM OPTION
 
     $('td input#deleteChild').on("click", function () {
-        confirmDelete("http://localhost:8080/user/");
+        // confirmDelete("http://localhost:8080/user/");
+        confirmDelete("/user/");
     });
 
     $('td input#deleteUser').on("click", function () {
-        confirmDelete("http://localhost:8080/admin/user/");
+        // confirmDelete("http://localhost:8080/admin/user/");
+        confirmDelete("/admin/user/");
     });
 
     $('td input#deleteGroup').on("click", function () {
-        confirmDelete("http://localhost:8080/admin/group/");
+        // confirmDelete("http://localhost:8080/admin/group/");
+        confirmDelete("/admin/group/");
     });
 
     function confirmDelete(address) {
         var txt;
         var r = confirm("Kontynuować proces usunięcia? Dane zostaną bezpowrotnie utracone!");
         if (r == false) {
-            window.location.href = address;
+            var contextPath='<%=request.getContextPath()%>';
+            window.location.href += window.location.address;
         }
     }
 

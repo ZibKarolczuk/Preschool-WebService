@@ -7,14 +7,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-<<<<<<< HEAD
 import pl.coderslab.preschool_web_service.entity.*;
-=======
 import pl.coderslab.preschool_web_service.entity.Child;
 import pl.coderslab.preschool_web_service.entity.ChildGroup;
 import pl.coderslab.preschool_web_service.entity.Message;
 import pl.coderslab.preschool_web_service.entity.UserDetails;
->>>>>>> f2db992e106e0bfdc2f0bcaeb4f268f2bb135795
 import pl.coderslab.preschool_web_service.entity.security.User;
 import pl.coderslab.preschool_web_service.repository.ChildGroupRepository;
 import pl.coderslab.preschool_web_service.repository.ChildRepository;
@@ -128,7 +125,7 @@ public class UserController {
         return "redirect:/user";
     }
 
-<<<<<<< HEAD
+
     @GetMapping("/textSMS")
     public String textSMS(Model model, @ModelAttribute User user) {
         model.addAttribute("textSMS", new TextSMS());
@@ -140,8 +137,6 @@ public class UserController {
         return "user/smsNotDelivered";
     }
 
-=======
->>>>>>> f2db992e106e0bfdc2f0bcaeb4f268f2bb135795
     @GetMapping("/update")
     public String updateInformation(Model model, @ModelAttribute UserDetails userDetails) {
         model.addAttribute("userDetails", userDetails);
