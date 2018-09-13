@@ -8,7 +8,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <c:set var="cssStyle" value="display:inline; padding: 10px 40px 10px 0px"/>
+<<<<<<< HEAD
 <c:set var="webContext" value="/myproj"/>
+=======
+<c:set var="webContext" value="/myProject"/>
+>>>>>>> f2db992e106e0bfdc2f0bcaeb4f268f2bb135795
 
 <header>
 
@@ -30,7 +34,11 @@
                 <c:url var="myurl" value="/user/message" context="${webContext}"/>
                 <li class="web-list-books"><a href="${myurl}">Kontakt email</a></li>
 
+<<<<<<< HEAD
                 <c:url var="myurl" value="/user/textSMS" context="${webContext}"/>
+=======
+                <c:url var="myurl" value="/user" context="${webContext}"/>
+>>>>>>> f2db992e106e0bfdc2f0bcaeb4f268f2bb135795
                 <li class="web-list-books"><a href="${myurl}">Pilny SMS (usługa płatna)</a></li>
 
             </ul>
