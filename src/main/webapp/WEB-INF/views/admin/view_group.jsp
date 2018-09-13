@@ -29,7 +29,6 @@
             <th>Grupa</th>
             <th>Przypisani uczniowie</th>
             <th>Akcje</th>
-            <%--<th><input type="button" class="btn btn-warning" value="Dodaj nową grupę" onclick="location.href = '/admin/group/new';"></th>--%>
         </tr>
         </thead>
         <tbody>
@@ -46,10 +45,10 @@
 
         <c:forEach var="cg" items="${childGroupList}">
             <c:set var="send_email" value=""></c:set>
-            <%--<c:set var="delete_group" value="<a href=\"/admin/group/${cg.id}/delete\">Usuń grupę</a>"></c:set>--%>
 
+            <c:url var="myurl" value="/admin/group/${cg.id}/delete" context="${webContext}"/>
             <c:set var="delete_group"
-                   value="<input id=\"deleteGroup\" type=\"button\" class=\"btn btn-danger\" value=\"Usuń grupę\" onclick=\"location.href = '/admin/group/${cg.id}/delete';\">"></c:set>
+                   value="<input id=\"deleteGroup\" type=\"button\" class=\"btn btn-danger\" value=\"Usuń grupę\" onclick=\"location.href = '${myurl}';\">"></c:set>
 
 
             <tr>
@@ -59,17 +58,18 @@
                         ${cg.id == sc.childGroup.id ? sc.name.concat(" ").concat(sc.surname).concat(", ") : ''}
                         <c:choose>
                             <c:when test="${cg.id eq sc.childGroup.id}">
+                                <c:url var="myurl" value="/admin/group/${cg.id}/message" context="${webContext}"/>
                                 <c:set var="send_email"
-                                       value="<input type=\"button\" class=\"btn btn-primary\" value=\"Wyślij e-mail\" onclick=\"location.href = '/admin/group/${cg.id}/message';\">"></c:set>
+                                       value="<input type=\"button\" class=\"btn btn-primary\" value=\"Wyślij e-mail\" onclick=\"location.href = '${myurl}';\">"></c:set>
                                 <c:set var="delete_group" value=""></c:set>
                             </c:when>
                         </c:choose>
                     </c:forEach>
                 </td>
                 <td>
-                        <%--<a href="/admin/group/${cg.id}/edit">Edytuj grupę</a><br>--%>
+                    <c:url var="myurl" value="/admin/group/${cg.id}/edit" context="${webContext}"/>
                     <input type="button" class="btn btn-secondary" value="Edytuj grupę"
-                           onclick="location.href = '/admin/group/${cg.id}/edit';">
+                           onclick="location.href = '${myurl}';">
                         ${send_email}
                         ${delete_group}
                 </td>
@@ -80,8 +80,9 @@
 
     <br>
 
-    <%--<div><h4><a href="/admin/group/new">Dodaj nową grupę</a></h4></div>--%>
-    <div><input type="button" class="btn btn-outline-secondary" value="Dodaj nową grupę" onclick="location.href = '/admin/group/new';"></div>
+    <c:url var="myurl" value="/admin/group/new" context="${webContext}"/>
+    <div><input type="button" class="btn btn-outline-secondary" value="Dodaj nową grupę"
+                onclick="location.href = '${myurl}';"></div>
     <br>
 
     <%@include file="/WEB-INF/views/fragment/footer.jspf" %>

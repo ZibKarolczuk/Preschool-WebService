@@ -17,7 +17,7 @@ public class HomeController {
 
     @GetMapping("")
     public String dispatchUser(){
-            return "redirect:/user";
+            return "redirect:user";
 
     }
 

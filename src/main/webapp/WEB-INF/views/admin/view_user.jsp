@@ -60,10 +60,13 @@
                     </c:forEach>
                 </td>
 
-                <td><input type="button" class="btn btn-primary" value="Wyślij e-mail"
-                           onclick="location.href = '/admin/user/email/${ud.id}';">
+                <td>
+                    <c:url var="myurl" value="/admin/user/email/${ud.id}" context="${webContext}"/>
+                    <input type="button" class="btn btn-primary" value="Wyślij e-mail"
+                           onclick="location.href = '${myurl}';">
+                    <c:url var="myurl" value="/admin/user/delete/${ud.id}" context="${webContext}"/>
                     <input id="deleteUser" type="button" class="btn btn-danger" value="Usuń użytkownika"
-                           onclick="location.href = '/admin/user/delete/${ud.id}';">
+                           onclick="location.href = '${myurl}';">
                 </td>
 
             </tr>

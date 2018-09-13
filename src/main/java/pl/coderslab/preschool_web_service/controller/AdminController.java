@@ -287,7 +287,8 @@ public class AdminController {
             this.chr.delete(childId);
         }
         this.ur.delete(userId);
-        return "redirect:/admin/user";
+        return "" +
+                "admin/user";
     }
 
 

@@ -51,8 +51,10 @@
                         ${userDetails.phone2.length() gt 0 ? "<br>".concat(userDetails.phone2) : ''}
                 </i>
             </td>
-            <td><input type="button" class="btn btn-secondary" value="Edytuj dane"
-                       onclick="location.href = '/user/update';"></td>
+            <td>
+                <c:url var="myurl" value="/user/update" context="${webContext}"/>
+                <input type="button" class="btn btn-secondary" value="Edytuj dane"
+                       onclick="location.href = '${myurl}';"></td>
         </tr>
         </tbody>
     </table>
@@ -72,8 +74,10 @@
         <%--<th>Data urodzenia</th>--%>
         <th>Upoważnienie do odbioru dziecka</th>
         <th>Wszelkie uwagi</th>
-        <th><input type="button" class="btn btn-primary" value="Dodaj dziecko"
-                   onclick="location.href = '/user/child/add';"></th>
+        <th>
+            <c:url var="myurl" value="/user/child/add" context="${webContext}"/>
+            <input type="button" class="btn btn-primary" value="Dodaj dziecko"
+                   onclick="location.href = '${myurl}';"></th>
 
         </thead>
         <tbody>
@@ -89,10 +93,12 @@
                     <i>Lekarstwa: </i><b>${child.specialInfoMedication}</b><br>
                     <i>Inne uwagi: </i><b>${child.specialInfoOther}</b></td>
                 <td>
+                    <c:url var="myurl" value="/user/child/edit/${child.id}" context="${webContext}"/>
                     <input type="button" class="btn btn-secondary" value="Edytuj"
-                           onclick="location.href = '/user/child/edit/${child.id}';">
+                           onclick="location.href = '${myurl}';">
+                    <c:url var="myurl" value="/user/child/delete/${child.id}" context="${webContext}"/>
                     <input id="deleteChild" type="button" class="btn btn-danger" value="Usuń"
-                           onclick="location.href = '/user/child/delete/${child.id}';">
+                           onclick="location.href = '${myurl}';">
 
                 </td>
             </tr>
