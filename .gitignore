@@ -3,6 +3,8 @@
 preschool_web_service.iml
 target/
 src/main/webapp/WEB-INF/web.xml
+src/main/resources/META-INF/
+src/main/java/pl/coderslab/preschool_web_service/app/AuthenticationProviderConfig.java
 
 # Compiled class file
 *.class

@@ -8,57 +8,44 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <c:set var="cssStyle" value="display:inline; padding: 10px 40px 10px 0px"/>
+<c:set var="webContext" value="/myProject"/>
 
 <header>
 
-    <%--<nav class="navbar navbar-expand-lg navbar-light bg-light">--%>
-        <%--<a class="navbar-brand" href="#">Przedszkole Stacyjkowo (użytkownik)</a>--%>
-        <%--<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">--%>
-            <%--<span class="navbar-toggler-icon"></span>--%>
-        <%--</button>--%>
-        <%--<div class="collapse navbar-collapse" id="navbarText">--%>
-            <%--<ul class="navbar-nav mr-auto">--%>
-                <%--<li class="nav-item active">--%>
-                    <%--<a class="nav-link" href="/user">Strona główna<span class="sr-only">(current)</span></a>--%>
-                <%--</li>--%>
-                <%--<li class="nav-item">--%>
-                    <%--<a class="nav-link" href="/user/message">Kontakt email</a>--%>
-                <%--</li>--%>
-                <%--<li class="nav-item">--%>
-                    <%--<a class="nav-link" href="/user">Pilny SMS (usługa płatna)</a>--%>
-                <%--</li>--%>
-            <%--</ul>--%>
-            <%--<ul class="navbar-nav navbar-right">--%>
-                <%--<li class="web-list-books"><a href="/admin">ADMIN (only for tests)</a></li>--%>
-                <%--<li class="web-list-books"><a href="/logout"><span class="glyphicon glyphicon-log-out"></span>Wyloguj</a>--%>
-                <%--</li>--%>
-            <%--</ul>--%>
-
-            <%--&lt;%&ndash;<span class="navbar-text">&ndash;%&gt;--%>
-      <%--&lt;%&ndash;Navbar text with an inline element&ndash;%&gt;--%>
-    <%--&lt;%&ndash;</span>&ndash;%&gt;--%>
-        <%--</div>--%>
-    <%--</nav>--%>
-
-
-
-
-
     <nav class="navbar navbar-inverse">
         <div class="container-fluid">
+
             <div class="navbar-header">
-                <a class="navbar-brand" href="/">Przedszkole Stacyjkowo (użytkownik)</a>
+
+                <c:url var="myurl" value="/" context="${webContext}"/>
+                <a class="navbar-brand" href="${myurl}">Przedszkole Stacyjkowo (użytkownik)</a>
+
             </div>
+
             <ul class="nav navbar-nav">
-                <li class="web-list-books"><a href="/user">Strona główna</a></li>
-                <li class="web-list-books"><a href="/user/message">Kontakt email</a></li>
-                <li class="web-list-books"><a href="/user">Pilny SMS (usługa płatna)</a></li>
+
+                <c:url var="myurl" value="/user" context="${webContext}"/>
+                <li class="web-list-books"><a href="${myurl}">Strona główna</a></li>
+
+                <c:url var="myurl" value="/user/message" context="${webContext}"/>
+                <li class="web-list-books"><a href="${myurl}">Kontakt email</a></li>
+
+                <c:url var="myurl" value="/user" context="${webContext}"/>
+                <li class="web-list-books"><a href="${myurl}">Pilny SMS (usługa płatna)</a></li>
+
             </ul>
+
             <ul class="nav navbar-nav navbar-right">
-                <li class="web-list-books"><a href="/admin">ADMIN (only for tests)</a></li>
-                <li class="web-list-books"><a href="/logout"><span class="glyphicon glyphicon-log-out"></span>Wyloguj</a>
+
+                <c:url var="myurl" value="/admin" context="${webContext}"/>
+                <li class="web-list-books"><a href="${myurl}">ADMIN (only for tests)</a></li>
+
+                <c:url var="myurl" value="/logout" context="${webContext}"/>
+                <li class="web-list-books"><a href="${myurl}"><span class="glyphicon glyphicon-log-out"></span>Wyloguj</a>
+
                 </li>
             </ul>
+
         </div>
     </nav>
 

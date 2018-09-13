@@ -8,23 +8,39 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <c:set var="cssStyle" value="display:inline; padding: 10px 40px 10px 0px"/>
+<c:set var="webContext" value="/myProject"/>
 
 <header>
 
     <nav class="navbar navbar-inverse">
         <div class="container-fluid">
             <div class="navbar-header">
-                <a class="navbar-brand" href="/admin/">Przedszkole Stacyjkowo (admin)</a>
+
+                <c:url var="myurl" value="/admin/" context="${webContext}"/>
+                <a class="navbar-brand" href="${myurl}">Przedszkole Stacyjkowo (admin)</a>
+
             </div>
+
             <ul class="nav navbar-nav">
-                <li class="web-list-books"><a href="/admin/child/">Wyświetl uczniów</a></li>
-                <li class="web-add-book"><a href="/admin/group/">Zarządzaj grupami przedszkolnymi</a></li>
-                <li class="web-add-book"><a href="/admin/user/">Zarządzaj użytkownikami</a></li>
+
+                <c:url var="myurl" value="/admin/child/" context="${webContext}"/>
+                <li class="web-list-books"><a href="${myurl}">Wyświetl uczniów</a></li>
+
+                <c:url var="myurl" value="/admin/group/" context="${webContext}"/>
+                <li class="web-add-book"><a href="${myurl}">Zarządzaj grupami przedszkolnymi</a></li>
+
+                <c:url var="myurl" value="/admin/user/" context="${webContext}"/>
+                <li class="web-add-book"><a href="${myurl}">Zarządzaj użytkownikami</a></li>
             </ul>
+
             <ul class="nav navbar-nav navbar-right">
-                <li class="web-list-books"><a href="/">USER (only for tests)</a></li>
-                <li class="web-list-books"><a href="/logout"><span class="glyphicon glyphicon-log-out"></span>Wyloguj</a>
-                </li>
+
+                <c:url var="myurl" value="/" context="${webContext}"/>
+                <li class="web-list-books"><a href="${myurl}">USER (only for tests)</a></li>
+
+                <c:url var="myurl" value="/logout" context="${webContext}"/>
+                <li class="web-list-books"><a href="${myurl}"><span class="glyphicon glyphicon-log-out"></span>Wyloguj</a></li>
+
             </ul>
         </div>
     </nav>
