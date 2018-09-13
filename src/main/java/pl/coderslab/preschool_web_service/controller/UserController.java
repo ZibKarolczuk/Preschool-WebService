@@ -7,10 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import pl.coderslab.preschool_web_service.entity.Child;
-import pl.coderslab.preschool_web_service.entity.ChildGroup;
-import pl.coderslab.preschool_web_service.entity.Message;
-import pl.coderslab.preschool_web_service.entity.UserDetails;
+import pl.coderslab.preschool_web_service.entity.*;
 import pl.coderslab.preschool_web_service.entity.security.User;
 import pl.coderslab.preschool_web_service.repository.ChildGroupRepository;
 import pl.coderslab.preschool_web_service.repository.ChildRepository;
@@ -122,6 +119,17 @@ public class UserController {
         EmailMessage emailMessage = new EmailMessage(servletRequest, emailList, messageFromDescription, message);
 
         return "redirect:/user";
+    }
+
+    @GetMapping("/textSMS")
+    public String textSMS(Model model, @ModelAttribute User user) {
+        model.addAttribute("textSMS", new TextSMS());
+        return "message/textToAdmin";
+    }
+
+    @PostMapping("/textSMS")
+    public String textSMSPost(){
+        return "user/smsNotDelivered";
     }
 
     @GetMapping("/update")
