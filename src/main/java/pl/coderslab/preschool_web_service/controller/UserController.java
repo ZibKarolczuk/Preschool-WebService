@@ -163,12 +163,14 @@ public class UserController {
     }
 
     @PostMapping("/child/add")
+//    @ResponseBody
     public String addChildPost(@Valid Child child,
                                BindingResult result,
                                Authentication auth) {
         if (result.hasErrors()) {
             return "form/new_child";
         }
+//        return "BIRTHDAY " + child.getBirthday();
         child.setUserDetails(this.udr.findOne(this.ur.findByUsername(auth.getName()).getId()));
         this.chr.save(child);
         return "redirect:/user";

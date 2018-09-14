@@ -19,13 +19,24 @@ $(document).ready(function () {
     }
 
     function confirmDelete(address) {
-
         var txt;
         var r = confirm("Kontynuować proces usunięcia? Dane zostaną bezpowrotnie utracone!");
         if (r == false) {
             window.location.pathname = getContextPath().concat(address);
         }
     }
+
+
+    var dateShort = $('#datepicker').datepicker().val().substring(0, 10);
+
+    $('#datepicker').datepicker({
+        startDay: 1,
+        showAnim: "fold",
+        dateFormat: "yy-mm-dd",
+        altField: ".date_alternate",
+        altFormat: "yy-mm-dd"
+    });
+
 
     $('[data-toggle=confirmation]').confirmation({
         rootSelector: '[data-toggle=confirmation]',

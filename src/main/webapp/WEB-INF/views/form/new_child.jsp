@@ -18,9 +18,7 @@
 <%@include file="/WEB-INF/views/fragment/headerUser.jspf" %>
 <div class="container-fluid">
 
-
     <div class="container">
-        <%--<div>--%>
 
         <h2>${title}</h2>
         <br>
@@ -45,11 +43,13 @@
                 </div>
             </div>
 
-            <%--<div>--%>
-            <%--<form:label path="birthhday">Data urodzenia</form:label>--%>
-            <%--<form:input path="birthhday"></form:input>--%>
-            <%--<form:errors path="birthhday"></form:errors>--%>
-            <%--</div>--%>
+            <div class="form-group row">
+                <form:label path="birthday" class="col-sm-2 col-form-label">Data urodzenia</form:label>
+                <div class="col-sm-6">
+                    <form:input path="birthday" class="form-control" placeholder="mm/dd/yyyy" id="datepicker"></form:input>
+                    <form:errors path="birthday"></form:errors>
+                </div>
+            </div>
 
             <div class="form-group row">
                 <form:label path="specialAllowedPickUp"

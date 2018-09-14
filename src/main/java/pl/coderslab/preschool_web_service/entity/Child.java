@@ -1,10 +1,9 @@
 package pl.coderslab.preschool_web_service.entity;
 
 import org.hibernate.validator.constraints.NotBlank;
-import pl.coderslab.preschool_web_service.entity.security.User;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.util.Date;
 
 @Entity
 public class Child {
@@ -15,7 +14,7 @@ public class Child {
 
     private @NotBlank String name;
     private @NotBlank String surname;
-    private LocalDate birthhday;
+    private Date birthday;
 
     private String specialInfoDiet;
     private String specialInfoMedication;
@@ -55,12 +54,12 @@ public class Child {
         this.surname = surname;
     }
 
-    public LocalDate getBirthhday() {
-        return birthhday;
+    public Date getBirthday() {
+        return birthday;
     }
 
-    public void setBirthhday(LocalDate birthhday) {
-        this.birthhday = birthhday;
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
     }
 
     public String getSpecialInfoDiet() {
