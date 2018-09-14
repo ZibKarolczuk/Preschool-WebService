@@ -11,12 +11,12 @@
 <head>
     <%@include file="/WEB-INF/views/fragment/headConfig.jspf" %>
     <title>Admin - lista grup</title>
+    <link id="contextPathHolder" data-contextPath="${pageContext.request.contextPath}"/>
 </head>
 <body>
 
 <%@include file="/WEB-INF/views/fragment/headerAdmin.jspf" %>
 <div class="container-fluid">
-
 
     <h2>Lista użytkowników</h2>
 
@@ -61,6 +61,9 @@
                 </td>
 
                 <td>
+
+                    <%--<c:out value="${pageContext.request.contextPath}" />--%>
+
                     <c:url var="myurl" value="/admin/user/email/${ud.id}" context="${webContext}"/>
                     <input type="button" class="btn btn-primary" value="Wyślij e-mail"
                            onclick="location.href = '${myurl}';">

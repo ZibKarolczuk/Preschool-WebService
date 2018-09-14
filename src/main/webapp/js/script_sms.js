@@ -21,9 +21,6 @@ $(document).ready(function () {
     })
 
 
-
-
-
     // function deleteUser(idUser) {
     //     sendGenericRequest("http://localhost:8080/admin/user/delete/"+idUser,
     //         "POST",

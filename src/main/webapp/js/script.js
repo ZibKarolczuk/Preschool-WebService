@@ -3,26 +3,27 @@ $(document).ready(function () {
     // DELETE ELEMENT REQUEST CONFIRM OPTION
 
     $('td input#deleteChild').on("click", function () {
-        // confirmDelete("http://localhost:8080/user/");
         confirmDelete("/user/");
     });
 
     $('td input#deleteUser').on("click", function () {
-        // confirmDelete("http://localhost:8080/admin/user/");
         confirmDelete("/admin/user/");
     });
 
     $('td input#deleteGroup').on("click", function () {
-        // confirmDelete("http://localhost:8080/admin/group/");
         confirmDelete("/admin/group/");
     });
 
+    function getContextPath() {
+        return $('#contextPathHolder').attr('data-contextPath');
+    }
+
     function confirmDelete(address) {
+
         var txt;
         var r = confirm("Kontynuować proces usunięcia? Dane zostaną bezpowrotnie utracone!");
         if (r == false) {
-            var contextPath='<%=request.getContextPath()%>';
-            window.location.href += window.location.address;
+            window.location.pathname = getContextPath().concat(address);
         }
     }
 
@@ -30,43 +31,5 @@ $(document).ready(function () {
         rootSelector: '[data-toggle=confirmation]',
         // other options
     });
-
-    // function deleteUser(idUser) {
-    //     sendGenericRequest("http://localhost:8080/admin/user/delete/"+idUser,
-    //         "POST",
-    //         undefined,
-    //         function (books) {
-    //             console.log("Działa! :)");
-    //             var renderingPointIDs = $("#test-test");
-    //             renderIdList(renderingPointIDs, books);
-    //         });
-    // }
-    //
-    // function sendPostDeleteUser() {
-    //     $.ajax({
-    //         type: "POST",
-    //         url: "http://localhost:8080/admin/user/delete/"+idUser,
-    //         data: {json:JSON.stringify(data)  },
-    //         success: success
-    //     });
-    // }
-
-    // JACKSON GENERIC
-
-    // function sendGenericRequest(url, method, data, successHandler) {
-    //     $.ajax({
-    //         url: url,
-    //         type: method,
-    //         data: data === undefined ? "" : JSON.stringify(data),
-    //         dataType: "json",
-    //         contentType: "application/json; charset=utf-8",
-    //     }).done(function (data) {
-    //         if (successHandler !== undefined) {
-    //             successHandler(data);
-    //         }
-    //     }).fail(function (xhr, status, errorThrown) {
-    //         console.log("BŁĄD!", xhr, status, errorThrown);
-    //     });
-    // }
 
 })

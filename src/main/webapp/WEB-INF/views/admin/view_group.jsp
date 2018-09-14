@@ -13,6 +13,7 @@
 <head>
     <%@include file="/WEB-INF/views/fragment/headConfig.jspf" %>
     <title>Admin - lista grup</title>
+    <link id="contextPathHolder" data-contextPath="${pageContext.request.contextPath}"/>
 </head>
 <body>
 

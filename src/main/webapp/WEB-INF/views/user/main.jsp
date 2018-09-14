@@ -12,6 +12,7 @@
 <head>
     <%@include file="/WEB-INF/views/fragment/headConfig.jspf" %>
     <title>Stacyjkowo - ${user.username}</title>
+    <link id="contextPathHolder" data-contextPath="${pageContext.request.contextPath}"/>
 </head>
 <body>
 

@@ -11,7 +11,12 @@
 <html>
 <head>
     <%@include file="/WEB-INF/views/fragment/headConfig.jspf" %>
-    <script src="${pageContext.request.contextPath}/js/script_sms.js" type="text/javascript"></script>
+
+    <script>
+        <c:set var="webContext"  value="${pageContext.request.contextPath}" />
+    </script>
+
+    <script src="${webContext}/js/script_sms.js" type="text/javascript"></script>
     <title>Stacyjkowo - SMS</title>
 </head>
 <body>
