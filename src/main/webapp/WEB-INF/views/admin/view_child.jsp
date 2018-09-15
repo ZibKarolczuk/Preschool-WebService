@@ -24,7 +24,6 @@
         <tr>
             <th>Imię i nazwisko dziecka</th>
             <th>Grupa przedszkolna</th>
-            <%--<th>Data urodzenia</th>--%>
             <th>Opiekun prawny</th>
             <th>Upoważnienie do odbioru dziecka</th>
             <th>Wszelkie uwagi</th>
@@ -34,7 +33,11 @@
         <c:forEach var="child" items="${childList}">
 
             <tr>
-                <td>${child.name} ${child.surname}</td>
+                <td>
+                        ${child.name} ${child.surname} <br>
+                                ${child.birthday eq null ? '' : child.birthday.toLocaleString().substring(0, 10)}
+                </td>
+
                 <td>
 
                     <form method="post">
@@ -51,18 +54,18 @@
                     </form>
 
                 </td>
-                    <%--<td>${child.birthhday}</td>--%>
+
                 <td>
                         ${child.userDetails.name} ${child.userDetails.surname}
-                    ${(child.userDetails.name2.trim().length() gt 0 or child.userDetails.surname2.trim().length() gt 0) ?
-                    "<br>".concat(child.userDetails.name2).concat(" ").concat(child.userDetails.surname2) : ''}
+                        ${(child.userDetails.name2.trim().length() gt 0 or child.userDetails.surname2.trim().length() gt 0) ?
+                                "<br>".concat(child.userDetails.name2).concat(" ").concat(child.userDetails.surname2) : ''}
                 </td>
                 <td>${child.specialAllowedPickUp}</td>
 
                 <td>
                         ${child.specialInfoDiet.trim().length() gt 0 ? "Dieta: ".concat(child.specialInfoDiet).concat("<br>") : ''}
-                    ${child.specialInfoMedication.trim().length() gt 0 ? "Lekarstwa: ".concat(child.specialInfoMedication).concat("<br>") : ''}
-                    ${child.specialInfoOther.trim().length() gt 0 ? "Inne uwagi: ".concat(child.specialInfoOther) : ''}
+                        ${child.specialInfoMedication.trim().length() gt 0 ? "Lekarstwa: ".concat(child.specialInfoMedication).concat("<br>") : ''}
+                        ${child.specialInfoOther.trim().length() gt 0 ? "Inne uwagi: ".concat(child.specialInfoOther) : ''}
                 </td>
             </tr>
         </c:forEach>

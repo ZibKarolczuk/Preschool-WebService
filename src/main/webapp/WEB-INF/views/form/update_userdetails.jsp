@@ -16,7 +16,7 @@
 </head>
 <body>
 
-<%@include file="/WEB-INF/views/fragment/headerUser.jspf" %>
+<%@include file="/WEB-INF/views/fragment/headerUserUpdate.jspf" %>
 <div class="container-fluid">
 
     <div class="container">

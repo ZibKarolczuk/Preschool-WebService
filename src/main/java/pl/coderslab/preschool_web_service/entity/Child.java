@@ -1,8 +1,11 @@
 package pl.coderslab.preschool_web_service.entity;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.util.Calendar;
 import java.util.Date;
 
 @Entity
@@ -14,6 +17,8 @@ public class Child {
 
     private @NotBlank String name;
     private @NotBlank String surname;
+
+    @DateTimeFormat(pattern="dd.MM.yyyy")
     private Date birthday;
 
     private String specialInfoDiet;
@@ -61,6 +66,15 @@ public class Child {
     public void setBirthday(Date birthday) {
         this.birthday = birthday;
     }
+
+
+//    public Calendar getBirthday() {
+//        return birthday;
+//    }
+//
+//    public void setBirthday(Calendar birthday) {
+//        this.birthday = birthday;
+//    }
 
     public String getSpecialInfoDiet() {
         return specialInfoDiet;

@@ -37,7 +37,7 @@
             <td>
                 ${userDetails.name} ${userDetails.surname}
                 ${(userDetails.name2.length() gt 0 or userDetails.surname2.length() gt 0) ?
-                "<br>".concat(userDetails.name2).concat(" ").concat(userDetails.surname2) : ''}
+                        "<br>".concat(userDetails.name2).concat(" ").concat(userDetails.surname2) : ''}
             </td>
             <td>${userDetails.addressStreet}<br>
                 ${userDetails.addressPostCode} ${userDetails.addressCity}</td>
@@ -46,10 +46,10 @@
                     ${userDetails.email}<br>
                     ${userDetails.phone}
 
-                        ${(userDetails.email2.length() gt 0 or userDetails.phone2.length() gt 0) ?
-                                "<br>" : ''}
-                        ${userDetails.email2.length() gt 0 ? "<br>".concat(userDetails.email2) : ''}
-                        ${userDetails.phone2.length() gt 0 ? "<br>".concat(userDetails.phone2) : ''}
+                    ${(userDetails.email2.length() gt 0 or userDetails.phone2.length() gt 0) ?
+                            "<br>" : ''}
+                    ${userDetails.email2.length() gt 0 ? "<br>".concat(userDetails.email2) : ''}
+                    ${userDetails.phone2.length() gt 0 ? "<br>".concat(userDetails.phone2) : ''}
                 </i>
             </td>
             <td>
@@ -71,9 +71,8 @@
         <%--<table class="table table-striped">--%>
         <thead>
 
-        <th>Imię i nazwisko dziecka</th>
-        <%--<th>Data urodzenia</th>--%>
-        <th>Upoważnienie do odbioru dziecka</th>
+        <th>Dane dziecka</th>
+        <th>Upoważnienie do odbioru</th>
         <th>Wszelkie uwagi</th>
         <th>
             <c:url var="myurl" value="/user/child/add" context="${webContext}"/>
@@ -86,7 +85,8 @@
             <tr>
                 <td>
                         ${child.name} ${child.surname}<br>
-                    <b>${child.childGroup.groupName}</b>
+                    Data urodzenia: ${child.birthday eq null ? '' : child.birthday.toLocaleString().substring(0, 10)} <br>
+                    Grupa przedszolna: <b>${child.childGroup.groupName}</b>
                 </td>
                     <%--<td>${child.birthhday}</td>--%>
                 <td>${child.specialAllowedPickUp}</td>

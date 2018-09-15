@@ -92,4 +92,17 @@ public class Message {
     public void setUserDetails(List<UserDetails> userDetails) {
         this.userDetails = userDetails;
     }
+
+    @Override
+    public String toString() {
+        return "Message{" +
+                "Id=" + Id +
+                ", sendFrom='" + sendFrom + '\'' +
+                ", sendTo='" + sendTo + '\'' +
+                ", title='" + title + '\'' +
+                ", message='" + message + '\'' +
+                ", dateTime='" + dateTime + '\'' +
+                ", userDetails=" + userDetails +
+                '}';
+    }
 }

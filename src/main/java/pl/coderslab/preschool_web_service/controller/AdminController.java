@@ -154,25 +154,32 @@ public class AdminController {
     public String userSendEmail(@PathVariable long userId, Model model, @ModelAttribute UserDetails userDetails) {
         model.addAttribute("message", new Message());
 
-        String title = this.udr.findOne(userId).getName() + " " + this.udr.findOne(userId).getSurname();
+        String title = "";
+        if (this.udr.findOne(userId).getName() != null || this.udr.findOne(userId).getSurname() != null) {
+            title = this.udr.findOne(userId).getName() + " " + this.udr.findOne(userId).getSurname();
+        } else {
+            title = this.udr.findOne(userId).getEmail();
+        }
         if (this.udr.findOne(userId).getEmail2() != null){
             if (!this.udr.findOne(userId).getName2().isEmpty() || !this.udr.findOne(userId).getSurname2().isEmpty()) {
                 title += " oraz " + this.udr.findOne(userId).getName2() + " " + this.udr.findOne(userId).getSurname2();
             }
         }
+
         model.addAttribute("title", title);
 
         return "message/adminToUser";
     }
 
     @PostMapping("/user/email/{userId}")
+    @ResponseBody
     public String userSendEmailPost(@Valid Message message,
                                     BindingResult result,
-                                    Model model,
+//                                    Model model,
                                     @PathVariable long userId,
-                                    @ModelAttribute User user,
-                                    Authentication auth,
-                                    ServletRequest servletRequest) throws EmailException, AddressException {
+//                                    @ModelAttribute User user,
+//                                    Authentication auth,
+                                    ServletRequest servletRequest) throws EmailException, AddressException, NullPointerException {
         if (result.hasErrors()) {
             return "message/adminToUser";
         }
@@ -189,9 +196,10 @@ public class AdminController {
         EmailMessage emailMessage = new EmailMessage(servletRequest, emailList, "Stacyjkowo Admin", message);
 
         message.setSendTo(emailList.toString());
-        this.mr.save(message);
+        return message.toString();
+//        this.mr.save(message);
 
-        return "redirect:/admin/user";
+//        return "redirect:/admin/user";
     }
 
     @GetMapping("/group/{id}/edit")

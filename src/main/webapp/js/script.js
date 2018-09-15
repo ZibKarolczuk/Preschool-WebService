@@ -27,15 +27,20 @@ $(document).ready(function () {
     }
 
 
-    var dateShort = $('#datepicker').datepicker().val().substring(0, 10);
+    // var dateShort = $('#datepicker').datepicker().val().substring(0, 10);
 
     $('#datepicker').datepicker({
-        startDay: 1,
         showAnim: "fold",
-        dateFormat: "yy-mm-dd",
-        altField: ".date_alternate",
-        altFormat: "yy-mm-dd"
+        dateFormat: 'dd.mm.yy'
     });
+
+    // $('#datepicker').datepicker({
+    //     startDay: 1,
+    //     showAnim: "fold",
+    //     dateFormat: "yy-mm-dd",
+    //     // altField: ".date_alternate",
+    //     // altFormat: "yy-mm-dd"
+    // });
 
 
     $('[data-toggle=confirmation]').confirmation({

@@ -16,6 +16,7 @@ public class UserDetails {
 
     private @NotBlank String name;
     private @NotBlank String surname;
+
     private @NotBlank String phone;
     private @Email String email;
 

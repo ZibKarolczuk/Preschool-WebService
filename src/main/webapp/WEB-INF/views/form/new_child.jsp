@@ -46,7 +46,7 @@
             <div class="form-group row">
                 <form:label path="birthday" class="col-sm-2 col-form-label">Data urodzenia</form:label>
                 <div class="col-sm-6">
-                    <form:input path="birthday" class="form-control" placeholder="mm/dd/yyyy" id="datepicker"></form:input>
+                    <form:input path="birthday" class="form-control" placeholder="dd.mm.yyyy" id="datepicker"></form:input>
                     <form:errors path="birthday"></form:errors>
                 </div>
             </div>
