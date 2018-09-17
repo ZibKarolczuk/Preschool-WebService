@@ -12,7 +12,7 @@
 <html>
 <head>
     <%@include file="/WEB-INF/views/fragment/headConfig.jspf" %>
-    <title>Stacyjkowo - nowy profil</title>
+    <title>Web Service (form user)</title>
 </head>
 <body>
 

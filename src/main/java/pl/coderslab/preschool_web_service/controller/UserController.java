@@ -50,42 +50,30 @@ public class UserController {
     @Autowired
     private MessageRepository mr;
 
-    @ModelAttribute("user")
-    public User userAttribute(Authentication auth) {
-        User user = this.ur.findByUsername(auth.getName());
-        return user;
-    }
-
-    @ModelAttribute("userDetails")
-    public UserDetails userDetailsAttribute(Authentication auth) {
-        UserDetails userDetails = this.udr.findOne(this.ur.findByUsername(auth.getName()).getId());
-        return userDetails;
-    }
-
     @ModelAttribute("groups")
     public List<ChildGroup> childGroupList() {
         return this.cgr.findAll();
+    }
+
+    private String accessControl(String jspView, UserDetails userDetails){
+        if (userDetails.getName() == null || userDetails.getSurname() == null){
+            return "redirect:/accessDenied";
+        } else {
+            return jspView;
+        }
     }
 
     @GetMapping("")
     public String userHome(Model model, @ModelAttribute User user, @ModelAttribute UserDetails userDetails) {
         model.addAttribute("childs", this.chr.findAllByUserDetails(userDetails));
         model.addAttribute("userDetails", userDetails);
-        return "user/main";
+        return accessControl("user/main", userDetails);
     }
 
-//    @PostMapping("")
-//    public String userHomePost(Model model, @RequestParam long childId, @RequestParam long groupId) {
-//        Child child = this.chr.findOne(childId);
-//        child.setChildGroup(this.cgr.findOne(groupId));
-//        this.chr.save(child);
-//        return "redirect:/user";
-//    }
-
     @GetMapping("/message")
-    public String message(Model model, @ModelAttribute User user) {
+    public String message(Model model, @ModelAttribute User user, @ModelAttribute UserDetails userDetails) {
         model.addAttribute("message", new Message());
-        return "message/userToAdmin";
+        return accessControl("message/userToAdmin", userDetails);
     }
 
     @PostMapping("/message")
@@ -127,9 +115,9 @@ public class UserController {
 
 
     @GetMapping("/textSMS")
-    public String textSMS(Model model, @ModelAttribute User user) {
+    public String textSMS(Model model, @ModelAttribute User user, @ModelAttribute UserDetails userDetails) {
         model.addAttribute("textSMS", new TextSMS());
-        return "message/textToAdmin";
+        return accessControl("message/textToAdmin", userDetails);
     }
 
     @PostMapping("/textSMS")
@@ -146,6 +134,7 @@ public class UserController {
     @PostMapping("/update")
     public String updateInformationPost(@Valid UserDetails userDetails,
                                         BindingResult result,
+                                        @ModelAttribute User user,
                                         Model model, Authentication auth) {
         if (result.hasErrors()) {
             return "form/update_userdetails";
@@ -156,21 +145,19 @@ public class UserController {
     }
 
     @GetMapping("/child/add")
-    public String addChild(Model model) {
+    public String addChild(Model model, @ModelAttribute UserDetails userDetails) {
         model.addAttribute("child", new Child());
         model.addAttribute("title", "Dodaj nowe dziecko do bazy danych");
-        return "form/new_child";
+        return accessControl("form/new_child", userDetails);
     }
 
     @PostMapping("/child/add")
-//    @ResponseBody
     public String addChildPost(@Valid Child child,
                                BindingResult result,
                                Authentication auth) {
         if (result.hasErrors()) {
             return "form/new_child";
         }
-//        return "BIRTHDAY " + child.getBirthday();
         child.setUserDetails(this.udr.findOne(this.ur.findByUsername(auth.getName()).getId()));
         this.chr.save(child);
         return "redirect:/user";
@@ -190,7 +177,7 @@ public class UserController {
         if (!check) return "error/notAuthorizedChild";
         model.addAttribute("child", this.chr.getChildWithAuthorisedUser(childId, userDetails.getId()));
         model.addAttribute("title", "Edytuj informacje o dziecku w bazie danych");
-        return "form/new_child";
+        return accessControl("form/new_child", userDetails);
     }
 
     @PostMapping("/child/edit/{childId}")
@@ -207,14 +194,14 @@ public class UserController {
         return "redirect:/user";
     }
 
-    @GetMapping("/child/delete/{id}")
+    @GetMapping("/child/delete/{childId}")
     @Transactional
-    public String removeChild(Model model, @ModelAttribute User user,
-                              @PathVariable long id) {
-        this.chr.findOne(id).setChildGroup(null);
-        this.chr.findOne(id).setUserDetails(null);
-        this.chr.delete(id);
-        return "redirect:/user";
+    public String removeChild(Model model, @ModelAttribute User user, @ModelAttribute UserDetails userDetails,
+                              @PathVariable long childId) {
+        this.chr.findOne(childId).setChildGroup(null);
+        this.chr.findOne(childId).setUserDetails(null);
+        this.chr.delete(childId);
+        return accessControl("redirect:/user", userDetails);
     }
 
 }

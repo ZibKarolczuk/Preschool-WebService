@@ -11,8 +11,7 @@
 <html>
 <head>
     <%@include file="/WEB-INF/views/fragment/headConfig.jspf" %>
-    <script src="${pageContext.request.contextPath}/js/script_sms.js" type="text/javascript"></script>
-    <title>Stacyjkowo - nowy profil</title>
+    <title>Web Service (sms message)</title>
 </head>
 <body>
 
@@ -26,9 +25,9 @@
 
         <form:form method="post" modelAttribute="textSMS">
 
-            <div class="form-group sms">
+            <div class="form-group">
                 <form:label path="message">Treść wiadomości</form:label>
-                <form:textarea path="message" rows="6"
+                <form:textarea path="message" rows="6" id="sms"
                                placeholder="wpisz treść wiadomości..." class="form-control"></form:textarea>
                 <form:errors path="message"></form:errors>
                 <br>

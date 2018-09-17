@@ -26,7 +26,7 @@ public class UserDetails {
     private @Email String email2;
 
     private @NotBlank String addressStreet;
-    private String addressPostCode;
+    private @NotBlank String addressPostCode;
     private @NotBlank String addressCity;
 
     @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.ALL, CascadeType.REMOVE}, orphanRemoval = true)

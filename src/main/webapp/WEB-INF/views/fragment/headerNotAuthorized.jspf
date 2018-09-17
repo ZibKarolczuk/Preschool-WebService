@@ -13,8 +13,6 @@
     <c:set var="webContext"  value="${pageContext.request.contextPath}" />
 </script>
 
-<%--<c:set var="webContext" value="/myproj"/>--%>
-
 <header>
 
     <nav class="navbar navbar-inverse">
@@ -23,27 +21,11 @@
             <div class="navbar-header">
 
                 <c:url var="myurl" value="/" context="${webContext}"/>
-                <a class="navbar-brand" href="${myurl}">Przedszkole Stacyjkowo (użytkownik)</a>
+                <a class="navbar-brand" href="${myurl}">Powrót do strony głównej</a>
 
             </div>
 
-            <ul class="nav navbar-nav">
-
-                <c:url var="myurl" value="/user" context="${webContext}"/>
-                <li class="web-list-books"><a href="${myurl}">Strona główna</a></li>
-
-                <c:url var="myurl" value="/user/message" context="${webContext}"/>
-                <li class="web-list-books"><a href="${myurl}">Kontakt email</a></li>
-
-                <c:url var="myurl" value="/user/textSMS" context="${webContext}"/>
-                <li class="web-list-books"><a href="${myurl}">Pilny SMS (usługa płatna)</a></li>
-
-            </ul>
-
             <ul class="nav navbar-nav navbar-right">
-
-                <%--<c:url var="myurl" value="/admin" context="${webContext}"/>--%>
-                <%--<li class="web-list-books"><a href="${myurl}">ADMIN (only for tests)</a></li>--%>
 
                 <c:url var="myurl" value="/logout" context="${webContext}"/>
                 <li class="web-list-books"><a href="${myurl}"><span class="glyphicon glyphicon-log-out"></span>Wyloguj</a>

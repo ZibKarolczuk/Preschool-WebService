@@ -70,7 +70,7 @@ public class AdminController {
 
     @ModelAttribute("userDetailsList")
     public List<UserDetails> userDetailsList() {
-        return this.udr.findAll();
+        return this.udr.getAllUsersButNotAdmin();
     }
 
     @ModelAttribute("childGroupList")
@@ -145,7 +145,6 @@ public class AdminController {
 
     @GetMapping("/user")
     public String viewUser(Model model, @ModelAttribute UserDetails userDetails) {
-//        model.addAttribute("userChilds", this.chr.getAllChildsByUser(userDetails.getId()));
         model.addAttribute("childs", this.chr.findAllChilds());
         return "admin/view_user";
     }
@@ -172,13 +171,9 @@ public class AdminController {
     }
 
     @PostMapping("/user/email/{userId}")
-    @ResponseBody
     public String userSendEmailPost(@Valid Message message,
                                     BindingResult result,
-//                                    Model model,
                                     @PathVariable long userId,
-//                                    @ModelAttribute User user,
-//                                    Authentication auth,
                                     ServletRequest servletRequest) throws EmailException, AddressException, NullPointerException {
         if (result.hasErrors()) {
             return "message/adminToUser";
@@ -196,10 +191,9 @@ public class AdminController {
         EmailMessage emailMessage = new EmailMessage(servletRequest, emailList, "Stacyjkowo Admin", message);
 
         message.setSendTo(emailList.toString());
-        return message.toString();
-//        this.mr.save(message);
+        this.mr.save(message);
 
-//        return "redirect:/admin/user";
+        return "redirect:/admin/user";
     }
 
     @GetMapping("/group/{id}/edit")
@@ -276,14 +270,10 @@ public class AdminController {
 
             }
         }
-
         EmailMessage emailMessage = new EmailMessage(servletRequest, emailList, "Stacyjkowo New Post", message);
-
         message.setSendTo(groupListName.toString());
         this.mr.save(message);
-
         return "redirect:/admin/group";
-
     }
 
     @GetMapping("/user/delete/{userId}")
@@ -295,9 +285,7 @@ public class AdminController {
             this.chr.delete(childId);
         }
         this.ur.delete(userId);
-        return "" +
-                "admin/user";
+        return "redirect:/admin/user";
     }
-
 
 }

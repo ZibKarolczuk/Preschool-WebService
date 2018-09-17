@@ -17,7 +17,7 @@
 
 <%@include file="/WEB-INF/views/fragment/headerAdmin.jspf" %>
 <div class="container-fluid">
-    <h2>Lista uczniów</h2>
+    <h2>Web Service, Admin (students)</h2>
 
     <table class="table table-striped">
         <thead>

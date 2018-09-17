@@ -27,13 +27,6 @@ public interface ChildRepository extends JpaRepository<Child, Long> {
     @Query(value = "SELECT * FROM Child WHERE userDetails_id=?1", nativeQuery = true)
     List<Child> getAllChildsByUser(Long id);
 
-//    List<Child> findAllByUser(User user);
-
-//    @Query(value = "SELECT * FROM Child left join ChildGroup CG on Child.childGroup_id = CG.id where CG.id=?1 order by surname asc", nativeQuery = true)
-//    List<Child> getChildByChildGroup();
-//
-//    List<Child> findAllByChildGroup(ChildGroup childGroup);
-
     @Query(value = "SELECT * FROM Child order by surname asc", nativeQuery = true)
     List<Child> findAllByChildOrderBySurname();
 

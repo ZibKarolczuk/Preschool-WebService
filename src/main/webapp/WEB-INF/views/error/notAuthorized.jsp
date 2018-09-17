@@ -15,7 +15,7 @@
 </head>
 <body>
 
-<%@include file="/WEB-INF/views/fragment/headerAdmin.jspf" %>
+<%@include file="/WEB-INF/views/fragment/headerNotAuthorized.jspf" %>
 
 <%-------%>
 
@@ -24,7 +24,7 @@
     <div class="container">
         <h2>Unauthorized request</h2>
         <hr>
-        <h5>Access denied because you have no permission to this data</h5>
+        <h5>Access denied, you have no permission to view this content.</h5>
         <br>
         <%@include file="/WEB-INF/views/fragment/footer.jspf" %>
     </div>

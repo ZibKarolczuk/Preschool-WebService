@@ -10,7 +10,7 @@
 <html>
 <head>
     <%@include file="/WEB-INF/views/fragment/head_config.jspf"%>
-    <title>Admin - lista grup</title>
+    <title>Web Service (mailbox, out)p</title>
 </head>
 <body>
 <%@include file="/WEB-INF/views/fragment/header.jspf" %>

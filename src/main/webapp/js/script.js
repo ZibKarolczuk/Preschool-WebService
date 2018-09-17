@@ -26,22 +26,30 @@ $(document).ready(function () {
         }
     }
 
-
-    // var dateShort = $('#datepicker').datepicker().val().substring(0, 10);
-
     $('#datepicker').datepicker({
         showAnim: "fold",
         dateFormat: 'dd.mm.yy'
     });
 
-    // $('#datepicker').datepicker({
-    //     startDay: 1,
-    //     showAnim: "fold",
-    //     dateFormat: "yy-mm-dd",
-    //     // altField: ".date_alternate",
-    //     // altFormat: "yy-mm-dd"
-    // });
+    function checkLenght(){
+        return "Liczba znaków " + $('#sms')[0].value.length + "/160";
+    }
 
+    function messageComment(){
+        $('p.sms_counter').text(checkLenght());
+    }
+
+    function chopMessage(){
+        if ($('#sms')[0].value.length > 160) {
+            var chopMessage = $('#sms')[0].value.substring(0, 160);
+            $('#sms')[0].value = chopMessage;
+        }
+    }
+
+    $('#sms').on("input", "", function () {
+        chopMessage();
+        messageComment();
+    })
 
     $('[data-toggle=confirmation]').confirmation({
         rootSelector: '[data-toggle=confirmation]',

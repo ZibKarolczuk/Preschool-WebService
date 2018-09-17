@@ -11,7 +11,7 @@
 <html>
 <head>
     <%@include file="/WEB-INF/views/fragment/headConfig.jspf" %>
-    <title>Wyślij wiadomość</title>
+    <title>Web Service (user message)</title>
 </head>
 <body>
 

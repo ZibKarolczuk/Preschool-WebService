@@ -13,6 +13,7 @@ import pl.coderslab.preschool_web_service.model.security.UserDto;
 import pl.coderslab.preschool_web_service.repository.UserDetailsRepository;
 import pl.coderslab.preschool_web_service.repository.security.UserRepository;
 import pl.coderslab.preschool_web_service.validation.security.EmailExistsException;
+import pl.coderslab.preschool_web_service.validation.security.UsernameExistsException;
 
 @Service
 public class UserService implements IUserService {
@@ -24,17 +25,24 @@ public class UserService implements IUserService {
 
 	@Transactional
     public User registerNewUserAccount(UserDto accountDto)
-      throws EmailExistsException {
+            throws EmailExistsException, UsernameExistsException {
          
         if (emailExist(accountDto.getEmail())) {   
             throw new EmailExistsException(
               "There is an account with that email address: " + accountDto.getEmail());
         }
+
+        if (userExist(accountDto.getUsername())) {
+            throw new UsernameExistsException(
+                    "There is an account with the username: " + accountDto.getUsername());
+        }
+
+
         User user = new User();    
         user.setUsername(accountDto.getUsername());
         user.setPassword(accountDto.getPassword());
         user.setEmail(accountDto.getEmail());
-        user.setRoles(Arrays.asList("ROLE_ADMIN"));
+        user.setRoles(Arrays.asList("ROLE_USER"));
         UserDetails userDetails = new UserDetails();
 //        userDetails.setId(user.getId());
         userDetails.setEmail(accountDto.getEmail());
@@ -49,4 +57,13 @@ public class UserService implements IUserService {
 		}
 		return false;
 	}
+
+    private boolean userExist(String username) {
+        User user = repository.findByUsername(username);
+        if (user != null) {
+            return true;
+        }
+        return false;
+    }
+
 }

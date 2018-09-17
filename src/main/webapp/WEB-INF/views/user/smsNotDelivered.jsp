@@ -17,7 +17,7 @@
     </script>
 
     <script src="${webContext}/js/script_sms.js" type="text/javascript"></script>
-    <title>Stacyjkowo - SMS</title>
+    <title>Web Service, Not Delivered</title>
 </head>
 <body>
 

@@ -10,7 +10,7 @@
 <html>
 <head>
     <%@include file="/WEB-INF/views/fragment/headConfig.jspf" %>
-    <title>Admin - lista grup</title>
+    <title>Web Service, Admin (users)</title>
     <link id="contextPathHolder" data-contextPath="${pageContext.request.contextPath}"/>
 </head>
 <body>
@@ -56,17 +56,23 @@
                     <c:forEach var="child" items="${childs}">
                         ${child.userDetails.id eq ud.id ?
                         child.name.concat(" ").concat(child.surname).concat(" (<b>").concat(child.childGroup.groupName).concat("</b>), ") : ''}
-                        <%--${child.name} ${child.surname} (<b>${child.childGroup.groupName}</b>),--%>
                     </c:forEach>
                 </td>
 
                 <td>
+                    <c:choose>
+                        <c:when test="${ud.name == null or ud.surname == null}">
+                            <c:url var="myurl" value="/admin/user/email/${ud.id}" context="${webContext}"/>
+                            <input type="button" class="btn btn-secondary" value="Wyślij e-mail"
+                                   onclick="location.href = '${myurl}';" disabled>
+                        </c:when>
+                        <c:otherwise>
+                            <c:url var="myurl" value="/admin/user/email/${ud.id}" context="${webContext}"/>
+                            <input type="button" class="btn btn-primary" value="Wyślij e-mail"
+                                   onclick="location.href = '${myurl}';">
+                        </c:otherwise>
+                    </c:choose>
 
-                    <%--<c:out value="${pageContext.request.contextPath}" />--%>
-
-                    <c:url var="myurl" value="/admin/user/email/${ud.id}" context="${webContext}"/>
-                    <input type="button" class="btn btn-primary" value="Wyślij e-mail"
-                           onclick="location.href = '${myurl}';">
                     <c:url var="myurl" value="/admin/user/delete/${ud.id}" context="${webContext}"/>
                     <input id="deleteUser" type="button" class="btn btn-danger" value="Usuń użytkownika"
                            onclick="location.href = '${myurl}';">

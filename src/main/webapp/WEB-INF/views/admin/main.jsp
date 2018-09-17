@@ -11,7 +11,7 @@
 <html>
 <head>
     <%@include file="/WEB-INF/views/fragment/headConfig.jspf"%>
-    <title>Stacyjkowo Admin</title>
+    <title>Web Service, Admin</title>
 </head>
 <body>
 

@@ -11,7 +11,7 @@
 <html>
 <head>
     <%@include file="/WEB-INF/views/fragment/headConfig.jspf" %>
-    <title>Stacyjkowo - nowy profil</title>
+    <title>Web Service (group message)</title>
 </head>
 <body>
 

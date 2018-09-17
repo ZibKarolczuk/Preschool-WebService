@@ -11,7 +11,7 @@
 <html>
 <head>
     <%@include file="/WEB-INF/views/fragment/headConfig.jspf" %>
-    <title>Edycja grupy</title>
+    <title>Web Service (form group)</title>
 </head>
 <body>
 

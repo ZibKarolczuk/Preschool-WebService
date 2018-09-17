@@ -17,53 +17,65 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-	@Override
-	protected void configure(HttpSecurity http) throws Exception {
-		CharacterEncodingFilter filter = new CharacterEncodingFilter();
-		filter.setEncoding("UTF-8");
-		filter.setForceEncoding(true);
-		http.addFilterBefore(filter,CsrfFilter.class);
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        CharacterEncodingFilter filter = new CharacterEncodingFilter();
+        filter.setEncoding("UTF-8");
+        filter.setForceEncoding(true);
+        http.addFilterBefore(filter, CsrfFilter.class);
 
-		http
-			.authorizeRequests()
-				.antMatchers("/register", "/login").permitAll()
-//				.antMatchers("/").access("hasRole('ROLE_ADMIN')")
-// .anyRequest().permitAll()
-				.antMatchers().access("hasAnyRole('ROLE_ADMIN')")
- 				.anyRequest().access("hasRole('ROLE_ADMIN')")
+        http
+                .authorizeRequests()
+                .antMatchers("/register", "/login").permitAll()
 
-				.and().formLogin()
-				.loginPage("/login")
-				.defaultSuccessUrl("/", true)
-//				.successForwardUrl("/test")
-//				.defaultSuccessUrl("/test")
-//				.and().csrf()
-				.and().logout()
-				.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-//				.logoutSuccessUrl("/").deleteCookies("JSESSIONID").invalidateHttpSession(true)
- ;
+//                .antMatchers("/").access("hasRole('ROLE_ADMIN')")
+//                .anyRequest().permitAll()
+//                .antMatchers("/").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
 
+                .antMatchers("/", "/user/**").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
+//                .antMatchers("/user/update").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
+//                .antMatchers("/user/**").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
+                .antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
+
+//				  .antMatchers().access("hasAnyRole('ROLE_ADMIN')")
+// 				  .anyRequest().access("hasRole('ROLE_ADMIN')")
+
+                .and().formLogin()
+                .loginPage("/login")
+                .defaultSuccessUrl("/", true)
+
+//				  .successForwardUrl("/test")
+//				  .defaultSuccessUrl("/test")
+//				  .and().csrf()
+
+                .and()
+                .exceptionHandling().accessDeniedPage("/accessDenied")
+                .and().logout()
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
+
+//				  .logoutSuccessUrl("/").deleteCookies("JSESSIONID").invalidateHttpSession(true)
 //		          .and()
-//				.formLogin()
-//				.loginPage("/login.html")
-//				.defaultSuccessUrl("/homepage.html")
-//				.failureUrl("/login.html?error=true")
-//				.and()
-//				.logout().logoutSuccessUrl("/login.html");
-	}
+//				  .formLogin()
+//				  .loginPage("/login.html")
+//				  .defaultSuccessUrl("/homepage.html")
+//				  .failureUrl("/login.html?error=true")
+//				  .and()
+//				  .logout().logoutSuccessUrl("/login.html");
 
-	// for db users
+    }
 
-	@Autowired
-	UserDetailsService userDetailsService;
+    // for db users
 
-	@Autowired
-	public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(userDetailsService).passwordEncoder(passwordencoder());
-	}
+    @Autowired
+    UserDetailsService userDetailsService;
 
-	@Bean(name = "passwordEncoder")
-	public PasswordEncoder passwordencoder() {
-		return new BCryptPasswordEncoder();
-	}
+    @Autowired
+    public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userDetailsService).passwordEncoder(passwordencoder());
+    }
+
+    @Bean(name = "passwordEncoder")
+    public PasswordEncoder passwordencoder() {
+        return new BCryptPasswordEncoder();
+    }
 }

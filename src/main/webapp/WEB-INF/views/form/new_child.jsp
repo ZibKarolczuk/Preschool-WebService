@@ -11,7 +11,7 @@
 <html>
 <head>
     <%@include file="/WEB-INF/views/fragment/headConfig.jspf" %>
-    <title>Dodaj dziecko</title>
+    <title>Web Service (form student)</title>
 </head>
 <body>
 

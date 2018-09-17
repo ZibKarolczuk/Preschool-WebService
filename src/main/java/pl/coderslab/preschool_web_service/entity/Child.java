@@ -67,15 +67,6 @@ public class Child {
         this.birthday = birthday;
     }
 
-
-//    public Calendar getBirthday() {
-//        return birthday;
-//    }
-//
-//    public void setBirthday(Calendar birthday) {
-//        this.birthday = birthday;
-//    }
-
     public String getSpecialInfoDiet() {
         return specialInfoDiet;
     }

@@ -11,7 +11,7 @@
 <html>
 <head>
     <%@include file="/WEB-INF/views/fragment/headConfig.jspf"%>
-    <title>Przedszkole Stacyjkowo</title>
+    <title>Web Service Welcome</title>
 </head>
 <body>
 

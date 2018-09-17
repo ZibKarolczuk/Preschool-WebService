@@ -20,6 +20,7 @@ import pl.coderslab.preschool_web_service.repository.MessageRepository;
 import pl.coderslab.preschool_web_service.repository.UserDetailsRepository;
 import pl.coderslab.preschool_web_service.service.security.IUserService;
 import pl.coderslab.preschool_web_service.validation.security.EmailExistsException;
+import pl.coderslab.preschool_web_service.validation.security.UsernameExistsException;
 
 
 @Controller
@@ -67,6 +68,8 @@ public class LoginController {
 		try {
 			registered = userService.registerNewUserAccount(accountDto);
 		} catch (EmailExistsException e) {
+			return null;
+		} catch (UsernameExistsException e) {
 			return null;
 		}
 		return registered;
